@@ -1,0 +1,39 @@
+# === Secrets — NEVER commit these ===
+.env
+.env.*
+!.env.example
+
+# === Python ===
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+*.egg
+
+# === Database files ===
+*.db
+*.sqlite
+*.sqlite3
+
+# === Testing ===
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# === IDE / Editor ===
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# === Logs ===
+*.log
+

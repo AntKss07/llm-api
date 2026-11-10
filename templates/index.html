@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ContextAI — Intelligent Chatbot</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
+</head>
+<body>
+    <div class="app-layout">
+        <!-- ===================== SIDEBAR ===================== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">🧠</span>
+                    <span class="logo-text">ContextAI</span>
+                </div>
+                <button class="btn btn-primary new-chat-btn" id="newChatBtn">
+                    + New Chat
+                </button>
+            </div>
+
+            <div class="sidebar-section-label">Conversations</div>
+            <div class="conversations-list" id="conversationsList">
+                <div class="empty-sidebar-msg">No conversations yet.</div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-info">
+                    <span class="info-dot" id="apiStatusDot"></span>
+                    <span id="apiStatusText">Checking…</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ==================== MAIN AREA ==================== -->
+        <main class="main-area">
+            <!-- Mobile header -->
+            <header class="mobile-header">
+                <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+                <span class="mobile-title">ContextAI</span>
+            </header>
+
+            <!-- Welcome screen (shown when no conversation is selected) -->
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="welcome-content">
+                    <div class="welcome-icon">🧠</div>
+                    <h1 class="welcome-title">Welcome to ContextAI</h1>
+                    <p class="welcome-subtitle">
+                        Your intelligent learning assistant with multi-turn memory.
+                    </p>
+                    <div class="welcome-features">
+                        <div class="feature-card">
+                            <span class="feature-icon">💬</span>
+                            <span>Remembers your conversation</span>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🎓</span>
+                            <span>Explains concepts clearly</span>
+                        </div>
+                        <div class="feature-card">
+                            <span class="feature-icon">🔒</span>
+                            <span>Separate, isolated chats</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-lg" id="welcomeNewChatBtn">
+                        Start a New Conversation
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat interface (shown when a conversation is active) -->
+            <div class="chat-interface" id="chatInterface" style="display:none">
+                <!-- Chat header -->
+                <div class="chat-header">
+                    <div class="chat-header-left">
+                        <span class="current-conv-title" id="currentConvTitle">New Conversation</span>
+                        <button class="icon-btn rename-btn" id="renameBtn" title="Rename">✏️</button>
+                    </div>
+                    <div class="chat-header-right">
+                        <span class="context-badge" id="contextBadge" title="Messages in context">
+                            context: —
+                        </span>
+                        <button class="icon-btn delete-btn" id="deleteConvBtn" title="Delete conversation">
+                            🗑️
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Messages area -->
+                <div class="messages-area" id="messagesArea">
+                    <div class="messages-container" id="messagesContainer"></div>
+                </div>
+
+                <!-- Error banner -->
+                <div class="error-banner" id="errorBanner" style="display:none">
+                    <span class="error-icon">⚠️</span>
+                    <span class="error-text" id="errorText"></span>
+                    <button class="error-dismiss" id="errorDismiss">✕</button>
+                </div>
+
+                <!-- Input area -->
+                <div class="input-area">
+                    <div class="input-wrapper">
+                        <textarea
+                            class="chat-input"
+                            id="chatInput"
+                            placeholder="Type your message… (Enter to send, Shift+Enter for newline)"
+                            rows="1"
+                        ></textarea>
+                        <button class="send-btn" id="sendBtn" title="Send message">
+                            <span class="send-icon">➤</span>
+                        </button>
+                    </div>
+                    <div class="input-hint">
+                        Powered by Gemini · Context window: <span id="contextWindowSize">20</span> messages
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ====================== MODALS ====================== -->
+
+    <!-- Rename modal -->
+    <div class="modal-overlay" id="renameModal" style="display:none">
+        <div class="modal">
+            <h3 class="modal-title">Rename Conversation</h3>
+            <input
+                type="text"
+                class="modal-input"
+                id="renameInput"
+                placeholder="Enter new title…"
+                maxlength="200"
+            />
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="renameCancelBtn">Cancel</button>
+                <button class="btn btn-primary" id="renameConfirmBtn">Rename</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete confirmation modal -->
+    <div class="modal-overlay" id="deleteModal" style="display:none">
+        <div class="modal">
+            <h3 class="modal-title">Delete Conversation</h3>
+            <p class="modal-body">This will permanently delete the conversation and all its messages. This cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="deleteCancelBtn">Cancel</button>
+                <button class="btn btn-danger" id="deleteConfirmBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
+
